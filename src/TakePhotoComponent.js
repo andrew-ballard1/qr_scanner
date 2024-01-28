@@ -7,7 +7,7 @@ const TakePhotoComponent = () => {
 	const canvasRef = useRef(null)
 	const [capturedImage, setCapturedImage] = useState(null)
 
-	const [body, setBody] = {} // stub for form
+	const [body, setBody] = useState({}) // stub for form
 
 	useEffect(() => {
 		startCamera()

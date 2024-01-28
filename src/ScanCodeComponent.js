@@ -1,20 +1,21 @@
 // ScanCodeComponent.js
 
-import React from 'react';
-import BarcodeScanner from './BarcodeScanner'; // You can use the Quagga or ZXing example from previous responses
+import React, { useState } from 'react'
+import BarcodeScanner from './BarcodeScanner' // You can use the Quagga or ZXing example from previous responses
 
 const ScanCodeComponent = () => {
-  const handleDetectedCode = (code) => {
-    console.log('Detected Code:', code);
-    // You can handle the detected code as needed
-  };
+	const [code, setCode] = useState({})
+	const handleDetectedCode = (data) => {
+		console.log('Detected Code:', data)
+		setCode({upc_code: data})
+	}
 
-  return (
-    <div>
-      <h2>Scan Code Component</h2>
-      <BarcodeScanner onDetected={handleDetectedCode} />
-    </div>
-  );
-};
+	return (
+		<div>
+			<BarcodeScanner onDetected={handleDetectedCode} />
+			{code.upc_code && <div>{JSON.stringify(code, null, 2)}</div>}
+		</div>
+	)
+}
 
-export default ScanCodeComponent;
+export default ScanCodeComponent
