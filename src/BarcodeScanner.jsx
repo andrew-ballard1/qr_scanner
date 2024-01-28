@@ -4,6 +4,7 @@ import { BrowserMultiFormatReader, BarcodeFormat } from '@zxing/library';
 const BarcodeScanner = ({ onDetected }) => {
   const videoRef = useRef(null);
   const codeReader = new BrowserMultiFormatReader();
+  
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -23,7 +24,9 @@ const BarcodeScanner = ({ onDetected }) => {
     };
   }, [onDetected]);
 
-  return <video ref={videoRef} />;
+  return (
+  	<video style={{margin: 0}} ref={videoRef} />
+  );
 };
 
 export default BarcodeScanner;

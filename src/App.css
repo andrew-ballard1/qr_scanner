@@ -2,16 +2,53 @@
   text-align: center;
 }
 
+body {
+	background-color: #efefef;
+}
+html {
+	padding: 5px;
+}
+body, #root {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+}
+
+video {
+	border-radius: 4px;
+	margin: 0;
+	/* max-width: 100vw; */
+	width: 100%;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 .QRCode {
-	height: 480px;
-	width: 640px;
+	/* height: 480px; */
+	/* width: 640px; */
 	border: 1px silver solid;
 	margin: auto;
 	margin-top: 200px;
+}
+
+.cameraButton {
+	z-index: 1000;
+	margin: auto;
+	margin-top: -120px;
+	background-color: #3CF;
+	border-radius: 80px;
+	width: 80px;
+	height: 80px;
+	bottom: 100px;
+	margin-left: calc(50vw - 38px);
+	border: 4px #2BD solid;
+	position: absolute;
+}
+
+.cameraButton:active {
+	background-color: #09B;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -68,12 +68,12 @@ const TakePhotoComponent = () => {
 	}
 
 	return (
-		<div style={{ display: 'flex', flexDirection: 'column' }}>
+		<div style={{ display: 'flex', flexDirection: 'column'}}>
 			<>
 				{!capturedImage && <video ref={videoRef} autoPlay playsInline />}
 				{capturedImage && <img src={capturedImage} alt="Captured" />}
 			</>
-			<button style={{ zIndex: 1000, margin: 'auto', marginTop: -120, backgroundColor: '#3CF', borderRadius: 100, width: 100, height: 100, borderColor: '#2BD', borderWidth: 4 }} onClick={captureImage}></button>
+			<button className={"cameraButton"} onClick={captureImage}></button>
 			<canvas ref={canvasRef} style={{ display: 'none' }} />
 		</div>
 	)
