@@ -17,7 +17,7 @@ const ScanCodeComponent = () => {
 	}
 
 	return (
-		<div>
+		<div style={{display: 'flex', alignItems: 'center'}}>
 			<BarcodeScanner onDetected={handleDetectedCode} />
 			{state.upc_code && <div>{JSON.stringify(state, null, 4)}</div>}
 		</div>

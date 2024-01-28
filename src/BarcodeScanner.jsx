@@ -22,7 +22,7 @@ const BarcodeScanner = ({ onDetected }) => {
 
 
   return (
-  	<video style={{margin: 0}} ref={videoRef}/>
+  	<video style={{margin: 0, padding: 0}} ref={videoRef}/>
   );
 };
 

@@ -31,15 +31,15 @@ const TakePhotoComponent = () => {
 		}
 	}
 
-	const upload = (formData) => {
-		fetch('localhost:8080/create', {
-			method: 'POST',
-			headers: {
-				'Content-Type':'multipart/form-data'
-			},
-			body: formData
-		})
-	}
+	// const upload = (formData) => {
+	// 	fetch('localhost:8080/create', {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'Content-Type':'multipart/form-data'
+	// 		},
+	// 		body: formData
+	// 	})
+	// }
 
 	const captureImage = async () => {
 		console.log('test')
@@ -58,11 +58,11 @@ const TakePhotoComponent = () => {
 			// Get the image data from the canvas as a data URL
 			const imageDataURL = canvas.toDataURL('image/png')
 
-			canvas.toBlob((blob) => {
-				var formData = new FormData() //this will submit as a "multipart/form-data" request
-				formData.append("image"+Date.now(), blob) //"image_name" is what the server will call the blob
-				upload(formData)
-			}, 'image/png')
+			// canvas.toBlob((blob) => {
+			// 	var formData = new FormData() //this will submit as a "multipart/form-data" request
+			// 	formData.append("image"+Date.now(), blob) //"image_name" is what the server will call the blob
+			// 	upload(formData)
+			// }, 'image/png')
 
 
 
@@ -70,7 +70,7 @@ const TakePhotoComponent = () => {
 
 			// Set the captured image state
 			await setCapturedImage(imageDataURL)
-			await stopCamera()
+			// await stopCamera()
 		}
 	}
 
@@ -88,8 +88,9 @@ const TakePhotoComponent = () => {
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column' }}>
 			<>
-				{!capturedImage && <video ref={videoRef} autoPlay playsInline />}
-				{capturedImage && <img src={capturedImage} alt="Captured" />}
+				{/* {!capturedImage && <video ref={videoRef} autoPlay playsInline />} */}
+				<video ref={videoRef} autoPlay playsInline />
+				{capturedImage && <><h2>Preview</h2><img src={capturedImage} alt="Captured" /></>}
 			</>
 			<button className={"cameraButton"} onClick={captureImage}></button>
 			<canvas ref={canvasRef} style={{ display: 'none' }} />

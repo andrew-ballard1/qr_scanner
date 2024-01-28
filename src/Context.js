@@ -4,7 +4,10 @@ console.log("CONTEXT FILE LOADED")
 
 const globalState = {
 	upc_code: '',
-	description: ''
+	description: '',
+	height: '',
+	weight: '',
+	location: ''
 }
 
 const GlobalStateContext = createContext(globalState)
@@ -21,7 +24,7 @@ const GlobalStateProvider = ({ children }) => {
 		console.log('state updated')
 		console.log(state)
 	}, [state])
-	
+
 	return (
 		<GlobalStateContext.Provider value={state}>
 			<DispatchStateContext.Provider value={dispatch}>
