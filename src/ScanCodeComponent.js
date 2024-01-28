@@ -16,10 +16,11 @@ const ScanCodeComponent = () => {
 		await dispatch({...state, upc_code: data})
 	}
 
+
 	return (
-		<div style={{display: 'flex', alignItems: 'center'}}>
+		<div style={{display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'space-between'}}>
 			<BarcodeScanner onDetected={handleDetectedCode} />
-			{state.upc_code && <div>{JSON.stringify(state, null, 4)}</div>}
+			{state.upc_code && <pre style={{width: 300}}>{JSON.stringify(state, null, 4)}</pre>}
 		</div>
 	)
 }
