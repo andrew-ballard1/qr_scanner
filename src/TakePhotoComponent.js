@@ -16,7 +16,7 @@ const TakePhotoComponent = () => {
 	const [state, dispatch] = useGlobalState()
 
 	const sendPost = async () => {
-		
+
 	}
 
 	const startCamera = async () => {
@@ -29,6 +29,16 @@ const TakePhotoComponent = () => {
 		} catch (error) {
 			console.error('Error accessing camera:', error)
 		}
+	}
+
+	const upload = (formData) => {
+		fetch('localhost:8080/create', {
+			method: 'POST',
+			headers: {
+				'Content-Type':'multipart/form-data'
+			},
+			body: formData
+		})
 	}
 
 	const captureImage = async () => {
@@ -48,7 +58,15 @@ const TakePhotoComponent = () => {
 			// Get the image data from the canvas as a data URL
 			const imageDataURL = canvas.toDataURL('image/png')
 
-			await dispatch({...state, image: imageDataURL})
+			canvas.toBlob((blob) => {
+				var formData = new FormData() //this will submit as a "multipart/form-data" request
+				formData.append("image"+Date.now(), blob) //"image_name" is what the server will call the blob
+				upload(formData)
+			}, 'image/png')
+
+
+
+			await dispatch({ ...state, image: imageDataURL })
 
 			// Set the captured image state
 			await setCapturedImage(imageDataURL)
@@ -68,7 +86,7 @@ const TakePhotoComponent = () => {
 	}
 
 	return (
-		<div style={{ display: 'flex', flexDirection: 'column'}}>
+		<div style={{ display: 'flex', flexDirection: 'column' }}>
 			<>
 				{!capturedImage && <video ref={videoRef} autoPlay playsInline />}
 				{capturedImage && <img src={capturedImage} alt="Captured" />}

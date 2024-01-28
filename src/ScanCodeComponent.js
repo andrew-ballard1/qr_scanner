@@ -1,13 +1,12 @@
 // ScanCodeComponent.js
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import BarcodeScanner from './BarcodeScanner' // You can use the Quagga or ZXing example from previous responses
 import { useGlobalState } from './Context'
 
 
 
 const ScanCodeComponent = () => {
-	const [code, setCode] = useState({})
 	const [state, dispatch] = useGlobalState()
 	
 	const handleDetectedCode =  async (data) => {
@@ -20,6 +19,7 @@ const ScanCodeComponent = () => {
 	return (
 		<div>
 			<BarcodeScanner onDetected={handleDetectedCode} />
+			{state.upc_code && <div>{JSON.stringify(state, null, 4)}</div>}
 		</div>
 	)
 }
