@@ -1,33 +1,68 @@
 // TakePhotoComponent.js
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const TakePhotoComponent = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [capturedImage, setCapturedImage] = useState(null);
 
+	useEffect(() => {
+		startCamera()
+	}, [])
+
   const startCamera = async () => {
-    // Similar to the example in the previous response
+    try {
+		const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+  
+		if (videoRef.current) {
+		  videoRef.current.srcObject = stream;
+		}
+	  } catch (error) {
+		console.error('Error accessing camera:', error);
+	  }
   };
 
-  const captureImage = () => {
-    // Similar to the example in the previous response
+  const captureImage = async () => {
+	console.log('test')
+	if (videoRef.current && canvasRef.current) {
+		const video = videoRef.current;
+		const canvas = canvasRef.current;
+		const context = canvas.getContext('2d');
+  
+		// Set canvas dimensions to match the video feed
+		canvas.width = video.videoWidth;
+		canvas.height = video.videoHeight;
+  
+		// Draw the current video frame onto the canvas
+		context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+		// Get the image data from the canvas as a data URL
+		const imageDataURL = canvas.toDataURL('image/png');
+  
+		// Set the captured image state
+		await setCapturedImage(imageDataURL);
+		await stopCamera()
+	  }
   };
 
   const stopCamera = () => {
-    // Similar to the example in the previous response
+    if (videoRef.current) {
+		const stream = videoRef.current.srcObject;
+		const tracks = stream.getTracks();
+  
+		tracks.forEach((track) => track.stop());
+  
+		videoRef.current.srcObject = null;
+	  }
   };
 
   return (
-    <div>
-      <h2>Take Photo Component</h2>
-      <video ref={videoRef} autoPlay playsInline />
-      <button onClick={startCamera}>Start Camera</button>
-      <button onClick={captureImage}>Capture Image</button>
-      <button onClick={stopCamera}>Stop Camera</button>
-      {capturedImage && <img src={capturedImage} alt="Captured" />}
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
+    <div style={{display: 'flex', flexDirection: 'column'}}>
+		<video ref={videoRef} autoPlay playsInline />
+		<button style={{margin: 'auto', marginTop: -120, backgroundColor: '#3CF', borderRadius: 100, width: 100, height: 100, borderColor: '#2BD', borderWidth: 4}} onClick={captureImage}></button>
+      	{capturedImage && <img src={capturedImage} alt="Captured" />}
+      	<canvas ref={canvasRef} style={{ display: 'none' }} />
     </div>
   );
 };
