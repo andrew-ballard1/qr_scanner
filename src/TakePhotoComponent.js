@@ -1,17 +1,19 @@
 // TakePhotoComponent.js
 
 import React, { useEffect, useRef, useState } from 'react'
+import { useGlobalState } from './Context'
 
 const TakePhotoComponent = () => {
 	const videoRef = useRef(null)
 	const canvasRef = useRef(null)
 	const [capturedImage, setCapturedImage] = useState(null)
 
-	const [body, setBody] = useState({}) // stub for form
 
 	useEffect(() => {
 		startCamera()
 	}, [])
+
+	const [state, dispatch] = useGlobalState()
 
 	const sendPost = async () => {
 		
@@ -45,6 +47,8 @@ const TakePhotoComponent = () => {
 
 			// Get the image data from the canvas as a data URL
 			const imageDataURL = canvas.toDataURL('image/png')
+
+			await dispatch({...state, image: imageDataURL})
 
 			// Set the captured image state
 			await setCapturedImage(imageDataURL)
