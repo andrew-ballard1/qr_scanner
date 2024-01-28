@@ -7,7 +7,7 @@ import TakePhotoComponent from './TakePhotoComponent'
 import './App.css'
 const Home = () => {
 	return (
-		<div style={{ display: 'flex', width: 400, justifyContent: 'space-around', position: 'absolute', bottom: 10 }}>
+		<div style={{ display: 'flex', width: '100%', justifyContent: 'space-around', position: 'absolute', bottom: 10, left: 0 }}>
 			<Link style={{ height: 50, width: 150, backgroundColor: '#3CF', borderRadius: 5, color: 'white', display: 'flex', textDecoration: 'none', fontWeight: 300, justifyContent: 'center', alignItems: 'center' }} to="/scan-code">Scanner</Link>
 			<Link style={{ height: 50, width: 150, backgroundColor: '#3CF', borderRadius: 5, color: 'white', display: 'flex', textDecoration: 'none', fontWeight: 300, justifyContent: 'center', alignItems: 'center' }} to="/take-photo">Camera</Link>
 		</div>
