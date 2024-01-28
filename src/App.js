@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
-import BarcodeScanner from './BarcodeScanner';
+// App.js
+
+import React from 'react'
+import {Route, Link } from 'react-router-dom'
+import ScanCodeComponent from './ScanCodeComponent'
+import TakePhotoComponent from './TakePhotoComponent'
+
+
+
+const Home = () => {
+	return (<nav>
+		<ul>
+			<li>
+				<Link to="/scan-code">Scan Code</Link>
+			</li>
+			<li>
+				<Link to="/take-photo">Take Photo</Link>
+			</li>
+		</ul>
+	</nav>)
+}
 
 const App = () => {
-  const [barcode, setBarcode] = useState('');
+	return (
+		<>
+			<Route path="/" component={Home}/>
+			<Route path="/scan-code" component={ScanCodeComponent} />
+			<Route path="/take-photo" component={TakePhotoComponent} />
+		</>
+	)
+}
 
-  const handleBarcodeDetected = (result) => {
-    // Extracted barcode data from the result object
-	console.log(result)
-    const detectedBarcode = result;
-
-    // Log the barcode data to the console
-    console.log('Detected Barcode:', detectedBarcode);
-
-    // If you want to display it on the page, you can update the state
-    setBarcode(detectedBarcode);
-  };
-
-  return (
-    <div>
-      <BarcodeScanner onDetected={handleBarcodeDetected} />
-      {barcode && <p>Detected Barcode: {barcode}</p>}
-    </div>
-  );
-};
-
-export default App;
+export default App
